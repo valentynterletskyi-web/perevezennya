@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ВантажПро Дніпро — Вайрфрейм</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0A1628;
+    --orange: #F97316;
+    --white: #fff;
+    --light: #F8FAFC;
+    --muted: #94A3B8;
+    --border: #CBD5E1;
+    --text: #1E293B;
+    --wire: #E2E8F0;
+    --wire-dark: #CBD5E1;
+    --placeholder: #94A3B8;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: var(--text);
+    background: #fff;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  /* ───── LABEL BADGE ───── */
+  .block-label {
+    display: inline-block;
+    background: var(--orange);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-bottom: 6px;
+  }
+
+  /* ───── WIREFRAME BOX (grey placeholder) ───── */
+  .wire-box {
+    background: var(--wire);
+    border: 1.5px dashed var(--wire-dark);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--placeholder);
+    font-size: 12px;
+    text-align: center;
+    padding: 8px;
+  }
+
+  /* ───── BUTTONS ───── */
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--orange); color: #fff;
+    border: none; border-radius: 8px;
+    padding: 12px 24px; font-size: 14px; font-weight: 600;
+    cursor: pointer; white-space: nowrap;
+  }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: transparent; color: var(--orange);
+    border: 2px solid var(--orange); border-radius: 8px;
+    padding: 10px 20px; font-size: 14px; font-weight: 600;
+    cursor: pointer; white-space: nowrap;
+  }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,.12); color: #fff;
+    border: 1.5px solid rgba(255,255,255,.3); border-radius: 8px;
+    padding: 10px 20px; font-size: 13px; font-weight: 600;
+    cursor: pointer; white-space: nowrap;
+  }
+
+  /* ───── SECTION WRAPPER ───── */
+  .section { width: 100%; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+  /* ════════════════════════════════
+     BLOCK 1 — HEADER
+  ════════════════════════════════ */
+  #block-header {
+    background: var(--navy);
+    border-bottom: 3px solid var(--orange);
+    padding: 0 20px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header-inner {
+    max-width: 1100px; margin: 0 auto; width: 100%;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo-area { display: flex; align-items: center; gap: 10px; }
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--orange); border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .logo-text { color: #fff; font-weight: 700; font-size: 17px; line-height: 1.2; }
+  .logo-sub { color: var(--muted); font-size: 11px; font-weight: 400; }
+  .header-right { display: flex; align-items: center; gap: 20px; }
+  .phone-block { text-align: right; }
+  .phone-num { color: #fff; font-size: 20px; font-weight: 700; letter-spacing: .02em; }
+  .phone-sub { color: var(--muted); font-size: 11px; }
+
+  /* ════════════════════════════════
+     BLOCK 2 — HERO
+  ════════════════════════════════ */
+  #block-hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #0F2347 60%, #1a3a6e 100%);
+    padding: 64px 20px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  #block-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      rgba(249,115,22,.03) 0px, rgba(249,115,22,.03) 2px,
+      transparent 2px, transparent 20px
+    );
+  }
+  .hero-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: center;
+    position: relative;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(249,115,22,.15); border: 1px solid rgba(249,115,22,.4);
+    color: var(--orange); font-size: 12px; font-weight: 600; letter-spacing: .06em;
+    padding: 4px 10px; border-radius: 20px; margin-bottom: 16px;
+  }
+  .hero-h1 {
+    font-size: 42px; font-weight: 800; color: #fff; line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .hero-h1 span { color: var(--orange); }
+  .hero-sub { color: #94A3B8; font-size: 16px; margin-bottom: 28px; }
+  .hero-utp {
+    display: flex; gap: 24px; margin-bottom: 36px; flex-wrap: wrap;
+  }
+  .utp-pill {
+    display: flex; align-items: center; gap: 8px;
+    color: #fff; font-size: 13px; font-weight: 500;
+  }
+  .utp-icon {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(249,115,22,.2); border: 1px solid rgba(249,115,22,.4);
+    display: flex; align-items: center; justify-content: center; font-size: 14px;
+  }
+
+  /* Form card */
+  .hero-form-card {
+    background: #fff; border-radius: 14px;
+    padding: 28px 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+  }
+  .form-card-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 18px; }
+  .form-field { margin-bottom: 12px; }
+  .form-field label { display: block; font-size: 11px; font-weight: 600; color: #64748B; margin-bottom: 4px; text-transform: uppercase; letter-spacing: .05em; }
+  .form-field input, .form-field select {
+    width: 100%; padding: 10px 12px; border: 1.5px solid var(--border);
+    border-radius: 7px; font-size: 14px; color: var(--text);
+    background: var(--light); outline: none;
+  }
+  .form-hint { font-size: 11px; color: var(--muted); text-align: center; margin-top: 8px; }
+
+  /* ════════════════════════════════
+     COUNTER BAR
+  ════════════════════════════════ */
+  .counter-bar {
+    background: var(--orange);
+    padding: 24px 20px;
+  }
+  .counter-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    text-align: center; gap: 16px;
+  }
+  .counter-num { font-size: 34px; font-weight: 800; color: #fff; line-height: 1; }
+  .counter-lbl { font-size: 12px; color: rgba(255,255,255,.8); margin-top: 4px; }
+
+  /* ════════════════════════════════
+     GENERIC SECTION STYLES
+  ════════════════════════════════ */
+  .section-light { background: #fff; padding: 64px 20px; }
+  .section-muted { background: var(--light); padding: 64px 20px; }
+  .section-dark  { background: var(--navy); padding: 64px 20px; }
+
+  .section-title {
+    font-size: 30px; font-weight: 800; margin-bottom: 8px; line-height: 1.2;
+  }
+  .section-sub { color: #64748B; font-size: 15px; margin-bottom: 36px; }
+  .section-title.white { color: #fff; }
+  .section-sub.white { color: #94A3B8; }
+
+  /* ════════════════════════════════
+     BLOCK 3 — ADVANTAGES (6 cards)
+  ════════════════════════════════ */
+  .adv-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+  }
+  .adv-card {
+    background: var(--light); border: 1.5px solid var(--wire-dark);
+    border-radius: 12px; padding: 22px 20px;
+    transition: box-shadow .2s;
+  }
+  .adv-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.08); }
+  .adv-icon { font-size: 28px; margin-bottom: 10px; }
+  .adv-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .adv-desc { font-size: 13px; color: #64748B; }
+
+  /* ════════════════════════════════
+     BLOCK 4 — FLEET (table style)
+  ════════════════════════════════ */
+  .fleet-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+  }
+  .fleet-card {
+    background: #fff; border: 1.5px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+  }
+  .fleet-img { height: 90px; }
+  .fleet-body { padding: 14px 16px; }
+  .fleet-name { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .fleet-specs { font-size: 12px; color: #64748B; line-height: 1.7; }
+  .fleet-tag {
+    display: inline-block; background: rgba(249,115,22,.1);
+    color: var(--orange); font-size: 11px; font-weight: 600;
+    padding: 2px 8px; border-radius: 4px; margin-bottom: 8px;
+  }
+  .fleet-footer { padding: 10px 16px; border-top: 1px solid var(--wire); }
+
+  /* ════════════════════════════════
+     BLOCK 5 — PROCESS (steps)
+  ════════════════════════════════ */
+  .steps-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    position: relative;
+  }
+  .steps-row::before {
+    content: '';
+    position: absolute; top: 28px; left: calc(12.5% + 14px); right: calc(12.5% + 14px);
+    height: 2px; background: var(--orange); z-index: 0;
+  }
+  .step-item { text-align: center; padding: 0 12px; position: relative; z-index: 1; }
+  .step-num {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--orange); color: #fff;
+    font-size: 18px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 14px;
+    border: 3px solid #fff; box-shadow: 0 0 0 2px var(--orange);
+  }
+  .step-icon { font-size: 20px; }
+  .step-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .step-desc { font-size: 12px; color: #64748B; }
+
+  /* ════════════════════════════════
+     BLOCK 6 — GEOGRAPHY
+  ════════════════════════════════ */
+  .geo-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .map-placeholder { height: 260px; border-radius: 12px; }
+  .routes-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+  .routes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .route-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--text); padding: 7px 10px;
+    background: var(--light); border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  .route-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+  .geo-note {
+    margin-top: 16px; font-size: 13px; color: #64748B;
+    padding: 10px 14px; border-left: 3px solid var(--orange);
+    background: rgba(249,115,22,.06); border-radius: 0 6px 6px 0;
+  }
+
+  /* ════════════════════════════════
+     BLOCK 7 — CALCULATOR
+  ════════════════════════════════ */
+  .calc-card {
+    background: #fff; border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 32px;
+    max-width: 740px; margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,.06);
+  }
+  .calc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .calc-result {
+    background: var(--navy); border-radius: 10px;
+    padding: 20px 24px; margin-top: 20px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+  .calc-price { color: #fff; font-size: 22px; font-weight: 800; }
+  .calc-price span { color: var(--orange); }
+  .calc-price-sub { color: #94A3B8; font-size: 12px; margin-top: 2px; }
+  .toggle-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-size: 14px; }
+  .toggle {
+    width: 40px; height: 22px; border-radius: 11px;
+    background: var(--orange); position: relative; cursor: pointer; flex-shrink: 0;
+  }
+  .toggle::after {
+    content: ''; position: absolute;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: #fff; top: 3px; right: 3px;
+  }
+
+  /* ════════════════════════════════
+     BLOCK 8 — REVIEWS
+  ════════════════════════════════ */
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .review-card {
+    background: #fff; border: 1.5px solid var(--border);
+    border-radius: 12px; padding: 22px;
+  }
+  .review-stars { color: #F59E0B; font-size: 16px; margin-bottom: 10px; }
+  .review-text { font-size: 13px; color: #475569; line-height: 1.6; margin-bottom: 14px; }
+  .review-author { display: flex; align-items: center; gap: 10px; }
+  .review-avatar { width: 36px; height: 36px; border-radius: 50%; }
+  .review-name { font-size: 13px; font-weight: 700; color: var(--text); }
+  .review-type { font-size: 11px; color: var(--muted); }
+
+  /* ════════════════════════════════
+     BLOCK 9 — CTA FORM
+  ════════════════════════════════ */
+  #block-cta { background: var(--navy); padding: 64px 20px; }
+  .cta-inner {
+    max-width: 560px; margin: 0 auto; text-align: center;
+  }
+  .cta-h2 { font-size: 30px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+  .cta-sub { color: #94A3B8; font-size: 15px; margin-bottom: 32px; }
+  .cta-form-card {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 14px; padding: 28px;
+  }
+  .cta-field { margin-bottom: 12px; }
+  .cta-field input, .cta-field textarea {
+    width: 100%; padding: 11px 14px;
+    background: rgba(255,255,255,.08); border: 1.5px solid rgba(255,255,255,.15);
+    border-radius: 8px; color: #fff; font-size: 14px; outline: none;
+  }
+  .cta-field input::placeholder, .cta-field textarea::placeholder { color: #64748B; }
+  .cta-field textarea { resize: none; height: 72px; }
+  .cta-divider { color: #475569; font-size: 13px; margin: 18px 0; }
+  .cta-phone { color: #fff; font-size: 20px; font-weight: 700; }
+  .cta-phone a { color: var(--orange); text-decoration: none; }
+
+  /* ════════════════════════════════
+     BLOCK 10 — FOOTER
+  ════════════════════════════════ */
+  #block-footer { background: #060D1A; padding: 40px 20px 0; }
+  .footer-main {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px; padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .footer-logo-text { color: #fff; font-weight: 700; font-size: 16px; margin-bottom: 8px; margin-top: 10px; }
+  .footer-desc { color: #64748B; font-size: 13px; line-height: 1.6; }
+  .footer-col-title { color: #fff; font-size: 13px; font-weight: 700; margin-bottom: 14px; text-transform: uppercase; letter-spacing: .06em; }
+  .footer-nav { list-style: none; }
+  .footer-nav li { margin-bottom: 8px; }
+  .footer-nav a { color: #64748B; font-size: 13px; text-decoration: none; }
+  .footer-contact { color: #94A3B8; font-size: 13px; line-height: 2; }
+  .footer-phone { color: #fff; font-size: 17px; font-weight: 700; display: block; margin-bottom: 4px; }
+  .footer-messengers { display: flex; gap: 10px; margin-top: 10px; }
+  .msg-btn {
+    padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600;
+    cursor: pointer; border: none;
+  }
+  .msg-viber { background: #7360F2; color: #fff; }
+  .msg-telegram { background: #26A5E4; color: #fff; }
+  .footer-bottom {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 0; color: #475569; font-size: 12px;
+  }
+
+  /* ════════════════════════════════
+     MOBILE STICKY BAR
+  ════════════════════════════════ */
+  .mobile-sticky {
+    display: none;
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--orange); z-index: 200;
+    height: 56px;
+  }
+  @media (max-width: 768px) { .mobile-sticky { display: grid; grid-template-columns: 1fr 1fr; } }
+  .mob-btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    color: #fff; font-size: 14px; font-weight: 700;
+    border: none; background: transparent; cursor: pointer;
+  }
+  .mob-btn:first-child { border-right: 1px solid rgba(255,255,255,.25); }
+
+  /* ════════════════════════════════
+     FLOATING WA BUTTON
+  ════════════════════════════════ */
+  .float-wa {
+    position: fixed; right: 20px; bottom: 80px; z-index: 150;
+    width: 52px; height: 52px; border-radius: 50%;
+    background: #25D366; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; box-shadow: 0 4px 16px rgba(0,0,0,.25);
+  }
+
+  /* ════════════════════════════════
+     POPUP OVERLAY
+  ════════════════════════════════ */
+  .popup-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.6); z-index: 300;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .popup-card {
+    background: #fff; border-radius: 16px; padding: 32px 28px;
+    max-width: 400px; width: 90%; text-align: center;
+    position: relative;
+  }
+  .popup-close {
+    position: absolute; top: 12px; right: 14px;
+    background: none; border: none; font-size: 20px; color: #94A3B8; cursor: pointer;
+  }
+  .popup-badge {
+    display: inline-block; background: var(--orange); color: #fff;
+    font-size: 13px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px;
+  }
+  .popup-h3 { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .popup-sub { font-size: 13px; color: #64748B; margin-bottom: 20px; }
+  .popup-field { width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; margin-bottom: 10px; outline: none; }
+
+  /* ════════════════════════════════
+     TIMER CHIP (in hero)
+  ════════════════════════════════ */
+  .timer-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(249,115,22,.15); border: 1px solid rgba(249,115,22,.35);
+    padding: 6px 14px; border-radius: 30px; margin-bottom: 20px;
+    color: #fff; font-size: 13px;
+  }
+  .timer-val { color: var(--orange); font-weight: 700; font-size: 15px; }
+
+  /* ════════════════════════════════
+     ORDER COUNTER
+  ════════════════════════════════ */
+  .order-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(34,197,94,.15); border: 1px solid rgba(34,197,94,.3);
+    padding: 6px 12px; border-radius: 20px;
+    color: #fff; font-size: 12px; margin-bottom: 14px;
+  }
+  .order-dot { width: 8px; height: 8px; border-radius: 50%; background: #22C55E; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  /* ════════════════════════════════
+     RESPONSIVE
+  ════════════════════════════════ */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-h1 { font-size: 30px; }
+    .adv-grid, .fleet-grid, .reviews-grid { grid-template-columns: 1fr 1fr; }
+    .steps-row { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .steps-row::before { display: none; }
+    .footer-main { grid-template-columns: 1fr; gap: 24px; }
+    .counter-inner { grid-template-columns: repeat(2,1fr); }
+    .geo-layout { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .adv-grid, .fleet-grid, .reviews-grid, .steps-row { grid-template-columns: 1fr; }
+    .calc-row { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     POPUP (exit intent preview)
+══════════════════════════════════════ -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-card">
+    <button class="popup-close" onclick="document.getElementById('popup').style.display='none'">✕</button>
+    <div class="popup-badge">🎁 Спеціальна пропозиція</div>
+    <h3 class="popup-h3">Зачекайте! Знижка 10%<br>на перше замовлення</h3>
+    <p class="popup-sub">Залиште номер — передзвонимо за 5 хвилин і розрахуємо вартість</p>
+    <input class="popup-field" type="text" placeholder="Ваше ім'я">
+    <input class="popup-field" type="tel" placeholder="+38 (___) ___-__-__">
+    <button class="btn-primary" style="width:100%;justify-content:center">🚛 Отримати знижку</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     BLOCK 1 — HEADER (sticky)
+══════════════════════════════════════ -->
+<header id="block-header">
+  <div class="header-inner">
+    <div class="logo-area">
+      <div class="logo-icon">🚛</div>
+      <div>
+        <div class="logo-text">ВантажПро</div>
+        <div class="logo-sub">Дніпро</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="phone-block">
+        <div class="phone-num">+38 (095) 832-85-12</div>
+        <div class="phone-sub">Виїзд від 1 години • Без вихідних</div>
+      </div>
+      <button class="btn-primary">📞 Замовити дзвінок</button>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════
+     BLOCK 2 — HERO
+══════════════════════════════════════ -->
+<section id="block-hero">
+  <div class="hero-inner">
+    <!-- Left column -->
+    <div>
+      <div class="order-chip">
+        <div class="order-dot"></div>
+        Сьогодні оформлено: 8 замовлень
+      </div>
+      <div class="hero-eyebrow">🏆 №1 у Дніпрі по вантажних перевезеннях</div>
+
+      <div class="timer-chip">
+        ⏰ Акція діє ще: <span class="timer-val" id="timer">02:47:33</span>
+      </div>
+
+      <h1 class="hero-h1">
+        Вантажні перевезення<br>
+        по Україні <span>від 1,5 до 22 тонн</span><br>
+        — з Дніпра
+      </h1>
+      <p class="hero-sub">Виїзд від 1 години ◾ Вантажники в різних містах ◾ Міжміські та міські рейси</p>
+
+      <div class="hero-utp">
+        <div class="utp-pill"><div class="utp-icon">🕐</div> Виїзд від 1 год</div>
+        <div class="utp-pill"><div class="utp-icon">📍</div> По всій Україні</div>
+        <div class="utp-pill"><div class="utp-icon">💪</div> Вантажники в команді</div>
+      </div>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <button class="btn-primary" style="font-size:15px;padding:14px 28px">🚛 Розрахувати вартість</button>
+        <a href="tel:+380958328512" style="text-decoration:none"><button class="btn-ghost">📞 Зателефонувати</button></a>
+      </div>
+    </div>
+
+    <!-- Right column: form card -->
+    <div>
+      <div class="hero-form-card">
+        <div class="form-card-title">Отримати ціну — за 5 хвилин</div>
+
+        <div class="form-field">
+          <label>Звідки везти?</label>
+          <input type="text" placeholder="Наприклад: Дніпро, вул. Центральна 5">
+        </div>
+        <div class="form-field">
+          <label>Куди везти?</label>
+          <input type="text" placeholder="Наприклад: Київ, Хрещатик 1">
+        </div>
+        <div class="form-field">
+          <label>Тоннаж</label>
+          <select>
+            <option>Оберіть тоннаж ▾</option>
+            <option>до 1,5 т — Мікроавтобус</option>
+            <option>до 3 т — Газель / Бус</option>
+            <option>до 5 т — МАН тентований</option>
+            <option>до 10 т — Фура 10т</option>
+            <option>до 22 т — Фура 22т</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Ваш телефон</label>
+          <input type="tel" placeholder="+38 (___) ___-__-__">
+        </div>
+        <button class="btn-primary" style="width:100%;justify-content:center;margin-top:4px">
+          📞 Отримати ціну →
+        </button>
+        <div class="form-hint">🔒 Відповімо протягом 5 хвилин. Без спаму.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     COUNTER BAR
+══════════════════════════════════════ -->
+<div class="counter-bar">
+  <div class="counter-inner">
+    <div><div class="counter-num">500+</div><div class="counter-lbl">рейсів щомісяця</div></div>
+    <div><div class="counter-num">8</div><div class="counter-lbl">років на ринку</div></div>
+    <div><div class="counter-num">15</div><div class="counter-lbl">одиниць техніки</div></div>
+    <div><div class="counter-num">98%</div><div class="counter-lbl">клієнтів повертаються</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     BLOCK 3 — ADVANTAGES
+══════════════════════════════════════ -->
+<section class="section-light">
+  <div class="container">
+    <div class="block-label">Блок 3 — Переваги</div>
+    <h2 class="section-title">Чому обирають нас?</h2>
+    <p class="section-sub">Понад 8 років досвіду і тисячі виконаних рейсів</p>
+    <div class="adv-grid">
+      <div class="adv-card">
+        <div class="adv-icon">🚛</div>
+        <div class="adv-title">Автопарк від 1,5 до 22 тонн</div>
+        <div class="adv-desc">Підберемо авто під будь-який вантаж — від меблів до промислового обладнання</div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">⚡</div>
+        <div class="adv-title">Виїзд від 1 години</div>
+        <div class="adv-desc">Швидко реагуємо на замовлення — не змушуємо чекати</div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">👷</div>
+        <div class="adv-title">Вантажники у різних містах</div>
+        <div class="adv-desc">Не потрібно шукати окремо — бригади є в Дніпрі, Києві, Харкові та інших містах</div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">🗺️</div>
+        <div class="adv-title">Вся Україна</div>
+        <div class="adv-desc">Міжміські рейси в будь-якому напрямку — з Дніпра та по всій країні</div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">📋</div>
+        <div class="adv-title">Робота за договором</div>
+        <div class="adv-desc">Офіційно, з документами — ТТН, акти виконаних робіт, рахунки для юр. осіб</div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">💬</div>
+        <div class="adv-title">На зв'язку 24/7</div>
+        <div class="adv-desc">Менеджер відповідає без вихідних — Viber, Telegram, телефон</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     BLOCK 4 — FLEET
+══════════════════════════════════════ -->
+<section class="section-muted">
+  <div class="container">
+    <div class="block-label">Блок 4 — Автопарк</div>
+    <h2 class="section-title">Наш транспорт — оберіть під ваше завдання</h2>
+    <p class="section-sub">5 типів транспорту для будь-якого вантажу та відстані</p>
+    <div class="fleet-grid" style="grid-template-columns:repeat(3,1fr)">
+
+      <div class="fleet-card">
+        <div class="fleet-img wire-box" style="height:90px;border-radius:0">🚐 Мікроавтобус</div>
+        <div class="fleet-body">
+          <div class="fleet-tag">до 1,5 т • до 9 м³</div>
+          <div class="fleet-name">Мікроавтобус</div>
+          <div class="fleet-specs">
+            Тоннаж: до 1,5 т<br>
+            Обсяг: до 9 м³<br>
+            Підходить: дрібний переїзд, меблі
+          </div>
+        </div>
+        <div class="fleet-footer"><button class="btn-outline" style="width:100%;justify-content:center">Замовити</button></div>
+      </div>
+
+      <div class="fleet-card">
+        <div class="fleet-img wire-box" style="height:90px;border-radius:0">🚚 Газель / Бус</div>
+        <div class="fleet-body">
+          <div class="fleet-tag">до 3 т • до 18 м³</div>
+          <div class="fleet-name">Газель / Бус</div>
+          <div class="fleet-specs">
+            Тоннаж: до 3 т<br>
+            Обсяг: до 18 м³<br>
+            Підходить: офісний переїзд, товари
+          </div>
+        </div>
+        <div class="fleet-footer"><button class="btn-outline" style="width:100%;justify-content:center">Замовити</button></div>
+      </div>
+
+      <div class="fleet-card">
+        <div class="fleet-img wire-box" style="height:90px;border-radius:0">🚛 Тентований МАН</div>
+        <div class="fleet-body">
+          <div class="fleet-tag">до 5 т • до 40 м³</div>
+          <div class="fleet-name">Тентований МАН</div>
+          <div class="fleet-specs">
+            Тоннаж: до 5 т<br>
+            Обсяг: до 40 м³<br>
+            Підходить: будматеріали, обладнання
+          </div>
+        </div>
+        <div class="fleet-footer"><button class="btn-outline" style="width:100%;justify-content:center">Замовити</button></div>
+      </div>
+
+      <div class="fleet-card">
+        <div class="fleet-img wire-box" style="height:90px;border-radius:0">🚛 Фура 10т</div>
+        <div class="fleet-body">
+          <div class="fleet-tag">до 10 т • до 60 м³</div>
+          <div class="fleet-name">Фура 10 тонн</div>
+          <div class="fleet-specs">
+            Тоннаж: до 10 т<br>
+            Обсяг: до 60 м³<br>
+            Підходить: комерційні вантажі
+          </div>
+        </div>
+        <div class="fleet-footer"><button class="btn-outline" style="width:100%;justify-content:center">Замовити</button></div>
+      </div>
+
+      <div class="fleet-card">
+        <div class="fleet-img wire-box" style="height:90px;border-radius:0">🏗️ Фура 22т</div>
+        <div class="fleet-body">
+          <div class="fleet-tag">до 22 т • до 90 м³</div>
+          <div class="fleet-name">Фура 22 тонни</div>
+          <div class="fleet-specs">
+            Тоннаж: до 22 т<br>
+            Обсяг: до 90 м³<br>
+            Підходить: великі партії, виробництво
+          </div>
+        </div>
+        <div class="fleet-footer"><button class="btn-outline" style="width:100%;justify-content:center">Замовити</button></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     BLOCK 5 — PROCESS
+══════════════════════════════════════ -->
+<section class="section-light">
+  <div class="container">
+    <div class="block-label">Блок 5 — Як ми працюємо</div>
+    <h2 class="section-title">Просто. Швидко. Надійно.</h2>
+    <p class="section-sub">4 кроки від заявки до доставки</p>
+
+    <div class="steps-row">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-icon">📞</div>
+        <div class="step-title">Дзвінок або заявка</div>
+        <div class="step-desc">Розповідаєте, що і куди везти — ми уточнюємо деталі</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-icon">🧮</div>
+        <div class="step-title">Розрахунок за 5 хв</div>
+        <div class="step-desc">Називаємо точну ціну без прихованих доплат</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-icon">🚛</div>
+        <div class="step-title">Подача авто</div>
+        <div class="step-desc">Виїжджаємо в узгоджений час — від 1 години після підтвердження</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-icon">✅</div>
+        <div class="step-title">Доставка і оплата</div>
+        <div class="step-desc">Гроші після виконання роботи — ніяких передоплат</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     BLOCK 6 — GEOGRAPHY
+══════════════════════════════════════ -->
+<section class="section-muted">
+  <div class="container">
+    <div class="block-label">Блок 6 — Географія</div>
+    <h2 class="section-title">Де ми працюємо</h2>
+    <p class="section-sub">Охоплюємо всю Україну — починаючи з Дніпра</p>
+
+    <div class="geo-layout">
+      <div class="wire-box map-placeholder">
+        🗺️ Карта України<br>
+        <small>(SVG-карта з підсвіченими містами)</small>
+      </div>
+      <div>
+        <div class="routes-title">🚛 Популярні маршрути</div>
+        <div class="routes-grid">
+          <div class="route-item"><div class="route-dot"></div>Дніпро → Київ</div>
+          <div class="route-item"><div class="route-dot"></div>Дніпро → Харків</div>
+          <div class="route-item"><div class="route-dot"></div>Дніпро → Одеса</div>
+          <div class="route-item"><div class="route-dot"></div>Дніпро → Запоріжжя</div>
+          <div class="route-item"><div class="route-dot"></div>Дніпро → Львів</div>
+          <div class="route-item"><div class="route-dot"></div>Дніпро → Кривий Ріг</div>
+          <div class="route-item"><div class="route-dot"></div>Дніпро → Черкаси</div>
+          <div class="route-item"><div class="route-dot"></div>Дніпро → Полтава</div>
+          <div class="route-item"><div class="route-dot"></div>Дніпропетровська обл.</div>
+          <div class="route-item"><div class="route-dot"></div>Міські перевезення</div>
+        </div>
+        <div class="geo-note">
+          Не бачите потрібного міста? Зателефонуйте — організуємо будь-який рейс
+        </div>
+        <div style="margin-top:20px">
+          <button class="btn-primary">📞 Уточнити маршрут</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     BLOCK 7 — CALCULATOR
+══════════════════════════════════════ -->
+<section class="section-light">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="block-label">Блок 7 — Калькулятор</div>
+      <h2 class="section-title">Розрахуйте вартість перевезення</h2>
+      <p class="section-sub">Орієнтовна ціна за хвилину — точна після дзвінка</p>
+    </div>
+
+    <div class="calc-card">
+      <div class="calc-row">
+        <div class="form-field" style="margin:0">
+          <label style="display:block;font-size:11px;font-weight:600;color:#64748B;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em">Місто відправки</label>
+          <input type="text" placeholder="Дніпро" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:7px;font-size:14px;background:var(--light);outline:none">
+        </div>
+        <div class="form-field" style="margin:0">
+          <label style="display:block;font-size:11px;font-weight:600;color:#64748B;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em">Місто призначення</label>
+          <input type="text" placeholder="Київ" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:7px;font-size:14px;background:var(--light);outline:none">
+        </div>
+      </div>
+      <div class="calc-row">
+        <div class="form-field" style="margin:0">
+          <label style="display:block;font-size:11px;font-weight:600;color:#64748B;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em">Тоннаж</label>
+          <select style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:7px;font-size:14px;background:var(--light);outline:none">
+            <option>до 1,5 т</option><option>до 3 т</option><option>до 5 т</option><option>до 10 т</option><option>до 22 т</option>
+          </select>
+        </div>
+        <div class="form-field" style="margin:0">
+          <label style="display:block;font-size:11px;font-weight:600;color:#64748B;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em">Відстань (км)</label>
+          <input type="number" placeholder="480" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:7px;font-size:14px;background:var(--light);outline:none">
+        </div>
+      </div>
+      <div class="toggle-row">
+        <div class="toggle"></div>
+        <span>Потрібні вантажники?</span>
+        <span style="color:var(--orange);font-weight:600">Так</span>
+      </div>
+
+      <div class="calc-result">
+        <div>
+          <div class="calc-price">🚛 Від <span>8 400 грн</span></div>
+          <div class="calc-price-sub">Орієнтовна вартість • Точна — після дзвінка</div>
+        </div>
+        <button class="btn-primary">Отримати точну ціну →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     BLOCK 8 — REVIEWS
+══════════════════════════════════════ -->
+<section class="section-muted">
+  <div class="container">
+    <div class="block-label">Блок 8 — Відгуки</div>
+    <h2 class="section-title">Що кажуть наші клієнти</h2>
+    <p class="section-sub">Реальні відгуки перевірених замовників</p>
+
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <div class="review-text">Перевозили квартиру з Дніпра до Києва. Вантажники спрацьовані — все запакували самі, жодного подряпання. Приїхали вчасно, навіть на 10 хвилин раніше. Буду звертатись ще.</div>
+        <div class="review-author">
+          <div class="review-avatar wire-box" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;font-size:14px">О</div>
+          <div>
+            <div class="review-name">Олег В., Дніпро</div>
+            <div class="review-type">Переїзд квартири • 3 тонни</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <div class="review-text">Замовляли фуру 10 тонн для доставки будматеріалів. Все приїхало цілим, водій дуже ввічливий. Ціна вийшла нижча, ніж у конкурентів. Рекомендую!</div>
+        <div class="review-author">
+          <div class="review-avatar wire-box" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;font-size:14px">М</div>
+          <div>
+            <div class="review-name">Максим К., Запоріжжя</div>
+            <div class="review-type">Доставка будматеріалів • 10 тонн</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <div class="review-text">Переїзд офісу зробили за один день. Три тонни техніки та меблів — без жодного пошкодження. Менеджер на зв'язку весь час. Дякую команді!</div>
+        <div class="review-author">
+          <div class="review-avatar wire-box" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;font-size:14px">Н</div>
+          <div>
+            <div class="review-name">Наталя Р., Дніпро</div>
+            <div class="review-type">Офісний переїзд • 3 тонни</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     BLOCK 9 — CTA FORM
+══════════════════════════════════════ -->
+<section id="block-cta">
+  <div class="cta-inner">
+    <div class="block-label">Блок 9 — Форма замовлення</div>
+    <h2 class="cta-h2">Готові забрати ваш вантаж<br>уже сьогодні</h2>
+    <p class="cta-sub">Залиште заявку — зателефонуємо протягом 5 хвилин і розрахуємо вартість</p>
+
+    <div class="cta-form-card">
+      <div class="cta-field"><input type="text" placeholder="Ваше ім'я"></div>
+      <div class="cta-field"><input type="tel" placeholder="Телефон *"></div>
+      <div class="cta-field"><input type="text" placeholder="Звідки / Куди везти?"></div>
+      <div class="cta-field"><textarea placeholder="Коментар (необов'язково)"></textarea></div>
+      <button class="btn-primary" style="width:100%;justify-content:center;font-size:15px;padding:14px">🚛 Залишити заявку</button>
+    </div>
+
+    <div class="cta-divider">— або —</div>
+    <div class="cta-phone">Зателефонуйте прямо зараз:<br>
+      <a href="tel:+380958328512">+38 (095) 832-85-12</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     BLOCK 10 — FOOTER
+══════════════════════════════════════ -->
+<footer id="block-footer">
+  <div class="footer-main">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="logo-icon">🚛</div>
+        <div>
+          <div class="footer-logo-text">ВантажПро Дніпро</div>
+        </div>
+      </div>
+      <p class="footer-desc" style="margin-top:12px">Надійні вантажні перевезення по Дніпру та всій Україні з 2017 року. Автопарк від 1,5 до 22 тонн. Вантажники в команді.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Навігація</div>
+      <ul class="footer-nav">
+        <li><a href="#">Послуги</a></li>
+        <li><a href="#">Автопарк</a></li>
+        <li><a href="#">Напрямки</a></li>
+        <li><a href="#">Відгуки</a></li>
+        <li><a href="#">Контакти</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Контакти</div>
+      <div class="footer-contact">
+        <a href="tel:+380958328512" class="footer-phone">+38 (095) 832-85-12</a>
+        Пн–Нд, 07:00–22:00
+      </div>
+      <div class="footer-messengers">
+        <button class="msg-btn msg-viber">📱 Viber</button>
+        <button class="msg-btn msg-telegram">✈️ Telegram</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 ВантажПро Дніпро. Всі права захищені.</span>
+    <span>Вантажні перевезення по Україні</span>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════
+     FLOATING BUTTONS
+══════════════════════════════════════ -->
+<button class="float-wa" title="WhatsApp / Viber">💬</button>
+
+<div class="mobile-sticky">
+  <a href="tel:+380958328512" style="text-decoration:none">
+    <button class="mob-btn">📞 Зателефонувати</button>
+  </a>
+  <button class="mob-btn">💬 Написати у Viber</button>
+</div>
+
+<script>
+  // Timer countdown
+  function updateTimer() {
+    const el = document.getElementById('timer');
+    if (!el) return;
+    let [h, m, s] = el.textContent.split(':').map(Number);
+    s--;
+    if (s < 0) { s = 59; m--; }
+    if (m < 0) { m = 59; h--; }
+    if (h < 0) { h = 2; m = 47; s = 33; }
+    el.textContent = [h, m, s].map(n => String(n).padStart(2, '0')).join(':');
+  }
+  setInterval(updateTimer, 1000);
+
+  // Close popup after 3s (demo — real site would use exit-intent)
+  setTimeout(() => {
+    document.getElementById('popup').style.display = 'none';
+  }, 5000);
+</script>
+
+</body>
+</html>
